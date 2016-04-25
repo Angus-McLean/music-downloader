@@ -1,0 +1,32 @@
+//manifest.json
+
+{
+	"name": "Music-Downloader",
+	"description": "",
+	"version": "0.0.0.1",
+	"manifest_version": 2,
+
+	"icons": {
+		"128": "public/img/download-musical-icon.png"
+	},
+	"background": {
+		"persistent": true,
+		"scripts": [
+			"background/main.background.js"
+		]
+	},
+	"content_scripts": [
+		{
+			"matches": ["http://*/*", "https://*/*"],
+			"js": [
+				"content/main.content.js"
+			]
+		}
+	],
+	"permissions": [
+		"tabs", "http://*/*", "activeTab", "contextMenus"
+	],
+	"browser_action": {
+		"default_title": "Music-Downloader"
+	}
+}
