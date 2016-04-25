@@ -1,0 +1,36 @@
+{
+  "name": "music-downloader-server",
+  "version": "1.0.0",
+  "description": "Server side code for music downloader app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Angus-McLean/music-downloader.git"
+  },
+  "keywords": [
+    "music",
+    "download",
+    "nodejs",
+    "chrome",
+    "extension",
+    "javascript",
+    "mp3",
+    "youtube",
+    "soundcloud",
+    "spotify"
+  ],
+  "author": "Angus-McLean",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Angus-McLean/music-downloader/issues"
+  },
+  "homepage": "https://github.com/Angus-McLean/music-downloader#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "socket.io": "^1.4.5"
+  }
+}
