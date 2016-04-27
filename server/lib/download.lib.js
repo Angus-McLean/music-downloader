@@ -2,7 +2,9 @@
 
 var request = require('request'),
 	async = require('async'),
-	constants = require(__dirname + '.\\..\\..\\config\\constants.js');
+	querystring = require('querystring'),
+	fs = require('fs'),
+	constants = require(__dirname + '.\\..\\config\\constants.js');
 
 module.exports.downloadLinks = function (links_arr) {
 	
@@ -85,7 +87,7 @@ function parseVubeyPage (bodyStr) {
 	
 	var loadingRes = bodyStr.match(/Please wait, your video is being converted to MP3../);
 	var errorRes = bodyStr.match(/Error downloading video, please use a different URL./);
-	var finishedRes = bodyStr.match(/Click <a href="(.+)">here<\/a> to download your MP3 file./);
+	var finishedRes = bodyStr.match(/<a href="(.+)">here<\/a>/);
 
 	if(Array.isArray(loadingRes) && loadingRes.length){
 		// file is not done yet
@@ -98,6 +100,7 @@ function parseVubeyPage (bodyStr) {
 			link : finishedRes[1]
 		};
 	} else if(Array.isArray(errorRes) && errorRes.length){
+		console.log(bodyStr.match(/<div class="w-container container">.+addthis_sharing_toolbox/));
 		return {
 			status : 'failed'
 		};
@@ -107,10 +110,15 @@ function parseVubeyPage (bodyStr) {
 function parseAndExecuteDownload (downloadLink, page_callback) {
 	var youtubeName = downloadLink.match(/\.com\/(.*)\.mp3/)[1]
 	youtubeName = youtubeName.replace(/_/g,' ');
-	youtubeName = youtubeName.replace(/\./g,'');
+	//youtubeName = youtubeName.replace(/\./g,'');
+	youtubeName = youtubeName.replace(/\-Vubey/g,'');
 	youtubeName += '.mp3';
 	
-	var songPath = constants.filesystem.relativeDestinationFolder + youtubeName
+	var folderPath = (constants.filesystem.absoluteDestinationFolder || constants.filesystem.relativeDestinationFolder);
+	var songPath = folderPath + youtubeName
+	if(!fs.existsSync(folderPath)){
+		fs.mkdirSync(folderPath);
+	}
 	request(downloadLink).pipe(fs.createWriteStream(songPath), function (err, writeData) {
 		if(!err){
 			console.log('Successfully Downloaded : '+youtubeName);

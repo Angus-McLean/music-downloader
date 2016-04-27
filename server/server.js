@@ -1,13 +1,14 @@
 // server.js
 
 var express = require('express'),
+	bodyParser = require('body-parser'),
 	app = express(),
 	server = require('http').Server(app),
 	io = require('socket.io')(server),
-	spotify = require('./server/lib/spotify.js'),
-	youtube = require('./server/lib/youtube.js'),
-	downloader = require('./server/lib/download.lib.js'),
-	ses = require('./config/sessiondata.js')
+	spotify = require('./lib/spotify.js'),
+	youtube = require('./lib/youtube.js'),
+	downloader = require('./lib/download.lib.js')
+	//ses = require('./config/sessiondata.js')
 
 GLOBAL.io = io;
 
@@ -22,6 +23,8 @@ app.use(function (req, res, next) {
 app.use(express.static(__dirname+'/sb-admin-angular/app'));
 
 app.use('/bower_components', express.static(__dirname+'/sb-admin-angular/bower_components'))
+
+app.use(bodyParser.json());
 
 /*
 routes :
@@ -68,7 +71,7 @@ app.get('/playlists/youtube/songs', function (req, res) {
 ////// Download Routes //////
 
 app.post('/download/urls', function (req, res) {
-	
+
 	var links_arr = req.body.links || req.data.links;
 	if(links_arr && links_arr.length){
 		downloader.downloadLinks(links_arr);
