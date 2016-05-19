@@ -6,29 +6,29 @@ var request = require('request'),
 	fs = require('fs'),
 	constants = require(__dirname + '.\\..\\config\\constants.js');
 
-module.exports.downloadLinks = function (links_arr) {
+module.exports.downloadLinks = function (downloadJobArr) {
 	
-	async.mapLimit(links_arr, constants.vubey.parallelPages, function (sourceLink, callback_outer) {
+	async.mapLimit(downloadJobArr, constants.vubey.parallelPages, function (downloadJobObj, callback_outer) {
 
 		async.waterfall([
 			function (callback) {
-				postAndGetVubeyId(sourceLink, callback)
+				postAndGetVubeyId(downloadJobObj, callback);
 			},
 			checkFinised
 		]);
 	}, function collector (err, res) {
 		console.log('collected vubey download results : ', arguments);
 	});
-}
+};
 
 
-function postAndGetVubeyId (sourceLink, callback) {
+function postAndGetVubeyId (downloadJobObj, callback) {
 	
 	var formObj = {
-		videoURL : sourceLink,
+		videoURL : downloadJobObj.downloadURL,
 		quality : '320'
 	};
-	var formData = querystring.stringify(formObj)
+	var formData = querystring.stringify(formObj);
 
 	var options = {
 		url : 'https://vubey.yt/',
@@ -108,14 +108,14 @@ function parseVubeyPage (bodyStr) {
 }
 
 function parseAndExecuteDownload (downloadLink, page_callback) {
-	var youtubeName = downloadLink.match(/\.com\/(.*)\.mp3/)[1]
+	var youtubeName = downloadLink.match(/\.com\/(.*)\.mp3/)[1];
 	youtubeName = youtubeName.replace(/_/g,' ');
 	//youtubeName = youtubeName.replace(/\./g,'');
 	youtubeName = youtubeName.replace(/\-Vubey/g,'');
 	youtubeName += '.mp3';
 	
 	var folderPath = (constants.filesystem.absoluteDestinationFolder || constants.filesystem.relativeDestinationFolder);
-	var songPath = folderPath + youtubeName
+	var songPath = folderPath + youtubeName;
 	if(!fs.existsSync(folderPath)){
 		fs.mkdirSync(folderPath);
 	}
