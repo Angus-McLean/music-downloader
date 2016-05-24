@@ -1,0 +1,33 @@
+Main Sections : 
+    - New Download
+        - Current Page
+            - Set up Meta Data for the song
+        - From Playlist
+            - List connected Services
+                - Can browse playlists, favorites, etc
+        - Search
+            - Select where you're searching (Youtube, Spotify, Last.fm)
+            - Input search query string (or metadata?)
+            - List of Search Results
+                - Can check items and bulk download
+        
+    - Status
+        - Songs that are downloading
+            - Can change their name, meta data, etc
+        
+    - Settings
+        - Connected Accounts
+            - YouTube, Spotify, SoundCloud API keys
+        - Connected Services
+            - Configure Downloaders
+            - Configure meta-data databases (spotify, lastfm, etc)
+                - API Keys
+        - File and Folder Structures
+            - File naming convention
+        - Automation
+            - Automatically check playlists for new songs
+
+Starting a Download : 
+    - Track name
+    - Set up meta data
+    - Choose file location

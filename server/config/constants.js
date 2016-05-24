@@ -21,6 +21,8 @@ module.exports = {
 	},
 	filesystem : {
 		relativeDestinationFolder : 'songs/',
-		absoluteDestinationFolder : null			// Example Absolute path:	'C:\\Users\\Angus\\Music\\DownloadedSongs\\'
-	}
-}
+		absoluteDestinationFolder : 'C:\\Users\\ERP\ Guru\\Music\\DownloadedSongs\\',
+		filenameConvention : '{{artist}} - {{title}}'
+	},
+	
+};

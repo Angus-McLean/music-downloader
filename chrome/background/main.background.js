@@ -9,7 +9,9 @@
 		//;
 
 		var requestObj = {
-			links : [tab.url]
+			links : [{
+				downloadURL : tab.url
+			}]
 		};
 
 		var xhr = new XMLHttpRequest();
