@@ -3,8 +3,12 @@ console.log('loaded app.js');
 
 angular
 	.module('music-downloader', [
-		'ui.router'
+		'ui.router',
+		'ngMaterial'
 	])
+	.config(function($mdThemingProvider) {
+		$mdThemingProvider.theme('default').primaryPalette('orange').dark();
+	})
 	.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,$urlRouterProvider) {
 
 		$urlRouterProvider.otherwise('/download');
@@ -13,6 +17,7 @@ angular
 			.state('download', {
 				url:'/download',
 				templateUrl: 'views/download/current.view.html',
+				controller: 'currentCtrl'
 			});
 		/*
 			.state('download.current',{

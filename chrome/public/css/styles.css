@@ -1,0 +1,9 @@
+html,
+body {
+	height: 400px;
+	width: 600px;
+}
+
+.tight {
+	margin: 0px 0px 0px 0px;
+}
