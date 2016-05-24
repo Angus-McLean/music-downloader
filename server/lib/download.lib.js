@@ -64,7 +64,6 @@ function checkFinised (vubeyLoadPageLink, page_callback) {
 	// load page
 	request(vubeyLoadPageLink, function (err, res, body) {
 		var pageObj = parseVubeyPage(body);
-		console.log('recieved page obj', pageObj);
 
 		if(pageObj.status == 'loading'){
 			
@@ -73,8 +72,10 @@ function checkFinised (vubeyLoadPageLink, page_callback) {
 			}, constants.vubey.waitBeforeRefresh);
 
 		} else if(pageObj.status == 'finished'){
+			console.log('Finished : ', pageObj);
 			parseAndExecuteDownload(pageObj.link, page_callback);
 		} else if(pageObj.status == 'failed'){
+			console.log('Failed : ', pageObj);
 			page_callback('vubey responded with an error', res);
 		} else {
 			console.error('unrecognized status', res, pageObj);
