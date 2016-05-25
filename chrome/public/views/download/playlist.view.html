@@ -1,0 +1,34 @@
+<md-content flex layout-padding>
+	<md-card flex-gt-sm="90" flex-gt-md="80">
+		<h3>Playlist</h3>
+		<md-card-content>
+			<div>
+				<md-input-container class="md-block tight" flex-gt-sm>
+					<label>Track Title</label>
+					<input ng-model="current.title">
+				</md-input-container>
+				<md-input-container class="tight">
+					<label>Artist</label>
+					<input ng-model="current.artist">
+				</md-input-container>
+				<md-input-container class="tight">
+					<label>Album</label>
+					<input ng-model="current.album">
+				</md-input-container>
+			</div>
+			<div>
+				<md-input-container class="tight">
+					<label>Rating</label>
+					<md-select ng-model="current.rating">
+						<md-option ng-repeat="rating in [1,2,3,4,5]" value="{{rating}}">
+							{{rating}}
+						</md-option>
+					</md-select>
+				</md-input-container>
+			</div>
+			<div layout="row" layout-align="end center">
+				<md-button class="md-raised md-warn" ng-click="startDownload()">Start Download</md-button>
+			</div>
+		</md-card-content>
+	</md-card>
+</md-content>

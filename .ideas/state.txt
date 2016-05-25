@@ -1,8 +1,8 @@
 Session State :
 	- Currently Downloading songs
 		- api end point that gives songs in progress
-	- 
 
 Persistent :
-	- Store massive JSON object for all downloaded songs
-	
+	- All downloading / downloaded / failed songs (with urls etc)
+	- Settings
+	- API Keys

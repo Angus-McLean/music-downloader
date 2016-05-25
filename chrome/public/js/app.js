@@ -11,25 +11,32 @@ angular
 	})
 	.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,$urlRouterProvider) {
 
-		$urlRouterProvider.otherwise('/download');
+		$urlRouterProvider.otherwise('/currentPage');
 
 		$stateProvider
-			.state('download', {
-				url:'/download',
+			.state('currentPage', {
+				url:'/currentPage',
 				templateUrl: 'views/download/current.view.html',
 				controller: 'currentCtrl'
-			});
-		/*
-			.state('download.current',{
-				url:'/current',
-				//controller: 'MainCtrl',
-				templateUrl:'views/download/current.view.html'
-			});
-		
-			.state('dashboard.form',{
-				templateUrl:'views/form.html',
-				url:'/form'
 			})
+			.state('playlist', {
+				url:'/playlist',
+				//controller: 'MainCtrl',
+				templateUrl:'views/download/playlist.view.html'
+			})
+			.state('trackSearch',{
+				url:'/trackSearch',
+				templateUrl:'views/download/trackSearch.view.html'
+			})
+			.state('inProgress',{
+				url:'/inProgress',
+				templateUrl:'views/status/inProgress.view.html'
+			})
+			.state('failed',{
+				url:'/failed',
+				templateUrl:'views/status/failed.view.html'
+			})
+		/*
 			.state('dashboard.blank',{
 				templateUrl:'views/pages/blank.html',
 				url:'/blank'
