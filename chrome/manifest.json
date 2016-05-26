@@ -27,6 +27,7 @@
 		"tabs", "http://*/*", "activeTab", "contextMenus"
 	],
 	"browser_action": {
-		"default_title": "Music-Downloader"
+		"default_title": "Music-Downloader",
+		"default_popup": "public/index.html"
 	}
 }
