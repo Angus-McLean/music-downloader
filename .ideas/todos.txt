@@ -1,0 +1,10 @@
+
+///// High-Level ToDo's /////
+Chrome App :
+	- Angular Material popup UI
+		- Set meta data for song (artist, name, stars, etc)
+	- Right Click on Link / Button
+		- Send fake click event
+		- Capture window.open and download that link
+	- Use Last.fm api or spotify api to automatically find meta data
+	- Allow for sorting into folders
