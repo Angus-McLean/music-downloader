@@ -72,11 +72,14 @@ app.get('/playlists/youtube/songs', function (req, res) {
 
 app.post('/download/urls', function (req, res) {
 
-	var links_arr = req.body.links || req.data.links;
+	var links_arr = (req.body && req.body.links) || (req.data && req.data.links) || null;
 	if(links_arr && links_arr.length){
 		downloader.downloadLinks(links_arr);
+		res.status(200).send('STARTED_DOWNLOAD');
+	} else {
+		res.status(400).send('MISSING_LINKS');
 	}
-	res.status(200).send('STARTED_DOWNLOAD');
+	
 });
 
 

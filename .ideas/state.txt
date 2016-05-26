@@ -1,0 +1,8 @@
+Session State :
+	- Currently Downloading songs
+		- api end point that gives songs in progress
+
+Persistent :
+	- All downloading / downloaded / failed songs (with urls etc)
+	- Settings
+	- API Keys

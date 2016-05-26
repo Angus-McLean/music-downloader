@@ -27,6 +27,18 @@ Main Sections :
         - Automation
             - Automatically check playlists for new songs
 
+Collapsible Side Nav : 
+    - New Download
+        - Current Page
+        - From Playlist
+        - Search
+    - Status
+    - Settings
+        - Connected Accounts
+        - Connected Services
+        - File and Folder Structure
+        - Automation
+
 Starting a Download : 
     - Track name
     - Set up meta data
