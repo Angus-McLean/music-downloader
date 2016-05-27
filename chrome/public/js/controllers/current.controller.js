@@ -13,8 +13,10 @@ angular.module('music-downloader')
 				console.log('recieved tabs : ', tabsArr)
 				if(tabsArr.length == 1){
 					// build download request object
-					var downloadObj = $scope.current;
-					downloadObj.downloadURL = tabsArr[0].url;
+					var downloadObj = {
+						downloadURL : tabsArr[0].url,
+						songMetadata : $scope.current
+					};
 					
 					downloadService.sendDownloadRequest(downloadObj, function (err, resp) {
 						if(!err){
