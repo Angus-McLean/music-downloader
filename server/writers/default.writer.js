@@ -5,8 +5,10 @@ var EventEmitter = require('events').EventEmitter,
 	fs = require('fs'),
 	request = require('request'),
 	httpHelpers = require('./../lib/httpHelpers.js'),
-	settings = require(__dirname + '.\\..\\config\\constants.js');
+	settings = require(__dirname + '.\\..\\config\\constants.js'),
+	ffmetadata = require("ffmetadata");
 
+process.env.FFMPEG_PATH = "C:\\Users\\ERP Guru\\Downloads\\ffmpeg-20160530-git-d74cc61-win32-static\\bin\\ffmpeg.exe";
 
 
 function formatSongName(downloadLink) {
@@ -42,7 +44,19 @@ DefaultWriter.prototype.start = function (downloadRequest) {
 	this.status = 'WRITING';
 	this.emit('WRITING');
 	
-	downloadRequest.pipe(fs.createWriteStream(songPath), function (err, writeData) {
+	var writeStream = fs.createWriteStream(songPath);
+	
+	writeStream.on('finish', function () {
+		ffmetadata.write(songPath, _this.songMetadata, {"id3v2.3" : true}, function (err) {
+			if(err) {
+				console.error('Failed to Write song meta data', err);
+			} else {
+				console.log('Successfully wrote metadata', JSON.stringify(_this.songMetadata));
+			}
+		});
+	});
+	
+	downloadRequest.pipe(writeStream, function (err, writeData) {
 		if(!err){
 			console.log('Successfully Downloaded : '+youtubeName);
 			_this.emit('DONE');

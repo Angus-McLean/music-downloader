@@ -27,7 +27,7 @@ function Download(reqObject) {
 	this.downloadURL = reqObject.downloadURL;
 	this.songMetadata = reqObject.songMetadata;
 	this.downloaders = [];
-	this.writers = [new DefaultWriter()];
+	this.writers = [new DefaultWriter(reqObject)];
 	
 	this.on('DOWNLOADING', function (downloadRequest) {
 		console.log('Download emitted DOWNLOADING');
