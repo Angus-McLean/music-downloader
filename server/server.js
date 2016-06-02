@@ -8,14 +8,12 @@ var express = require('express'),
 	spotify = require('./lib/spotify.js'),
 	youtube = require('./lib/youtube.js'),
 	downloader = require('./lib/download.lib.js'),
-	Download = require('./objects/Download.object.js');
+	Download = require('./objects/Download.object.js'),
+	PouchDB = require('pouchdb');
 	//ses = require('./config/sessiondata.js')
 
 GLOBAL.io = io;
-
-GLOBAL.data = {
-	downloads : []
-};
+GLOBAL.memPouchDB = PouchDB.defaults({db: require('memdown')});
 
 // middlewares  :
 app.use(function (req, res, next) {
@@ -23,9 +21,13 @@ app.use(function (req, res, next) {
 	next();
 });
 
-app.use(express.static(__dirname+'/sb-admin-angular/app'));
+app.use('/db', require('express-pouchdb')(GLOBAL.memPouchDB));
 
-app.use('/bower_components', express.static(__dirname+'/sb-admin-angular/bower_components'))
+var downloadsDB = new GLOBAL.memPouchDB('downloadsDB');
+
+// app.use(express.static(__dirname+'/sb-admin-angular/app'));
+// 
+// app.use('/bower_components', express.static(__dirname+'/sb-admin-angular/bower_components'))
 
 app.use(bodyParser.json());
 

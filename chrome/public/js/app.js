@@ -30,7 +30,8 @@ angular
 			})
 			.state('inProgress',{
 				url:'/inProgress',
-				templateUrl:'views/status/inProgress.view.html'
+				templateUrl:'views/status/inProgress.view.html',
+				controller: 'progressCtrl as demo'
 			})
 			.state('failed',{
 				url:'/failed',
