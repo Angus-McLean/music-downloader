@@ -26,11 +26,11 @@ function formatSongName(downloadLink) {
 	return songPath;
 }
 	
-function DefaultWriter(config) {
+function DefaultWriter(parent) {
 	// Initialize events
 	EventEmitter.call(this);
-	
-	this.songMetadata = (config && config.songMetadata) || {};
+	this.parent = parent;
+	this.songMetadata = (parent && (parent.doc.songMetadata || parent.songMetadata)) || {};
 	
 	this.status = 'WAITING';
 }
@@ -47,11 +47,14 @@ DefaultWriter.prototype.start = function (downloadRequest) {
 	var writeStream = fs.createWriteStream(songPath);
 	
 	writeStream.on('finish', function () {
-		ffmetadata.write(songPath, _this.songMetadata, {"id3v2.3" : true}, function (err) {
+		var metadataObj = _this.parent.doc.songMetadata || _this.parent.songMetadata;
+		ffmetadata.write(songPath, metadataObj, {"id3v2.3" : true}, function (err) {
 			if(err) {
 				console.error('Failed to Write song meta data', err);
+				_this.emit('ERROR', err);
 			} else {
 				console.log('Successfully wrote metadata', JSON.stringify(_this.songMetadata));
+				_this.emit('DONE');
 			}
 		});
 	});
@@ -59,7 +62,7 @@ DefaultWriter.prototype.start = function (downloadRequest) {
 	downloadRequest.pipe(writeStream, function (err, writeData) {
 		if(!err){
 			console.log('Successfully Downloaded : '+youtubeName);
-			_this.emit('DONE');
+			_this.emit('DOWNLOADED');
 		} else {
 			console.error('write file error', err, writeData);
 			_this.emit('ERROR', err);

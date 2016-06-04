@@ -1,0 +1,36 @@
+<div ng-cloak>
+	<md-content>
+		<md-tabs md-dynamic-height md-border-bottom>
+			<md-tab label="Loading" ui-sref='status.loading'>
+				<div ui-view></div>
+			</md-tab>
+			<md-tab label="Failed" ui-sref='status.failed'>
+				<div ui-view></div>
+			</md-tab>
+			<md-tab label="Completed" ui-sref='status.completed'>
+				<div ui-view></div>
+			</md-tab>
+		</md-tabs>
+	</md-content>
+	
+	<div class="lock-size" layout="row" layout-align="end center" style="position:fixed;bottom:10px;right:10px;">
+		<md-fab-speed-dial md-open="demo.isOpen" md-direction="left" ng-class="demo.selectedMode">
+			<md-fab-trigger>
+				<md-button aria-label="menu" class="md-fab md-warn">
+					<md-icon class="md-default-theme" class="material-icons">&#xE145;</md-icon>
+				</md-button>
+			</md-fab-trigger>
+			<md-fab-actions>
+				<md-button aria-label="Current Page" class="md-fab md-raised md-mini" ng-click="startDownload()">
+					<md-icon aria-label="Current Page">&#xE2C4;</md-icon>
+				</md-button>
+				<md-button aria-label="Click" class="md-fab md-raised md-mini">
+					<md-icon aria-label="Click">&#xE876;</md-icon>
+				</md-button>
+				<md-button aria-label="Many" class="md-fab md-raised md-mini">
+					<md-icon aria-label="Many">&#xE877;</md-icon>
+				</md-button>
+			</md-fab-actions>
+		</md-fab-speed-dial>
+	</div>
+</div>

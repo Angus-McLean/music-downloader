@@ -1,44 +1,14 @@
 <div ng-cloak>
 	<md-content>
 		<md-tabs md-dynamic-height md-border-bottom>
-			<md-tab label="Loading">
-				<md-content class="md-padding">
-					<md-list>
-						<md-list-item class="noright md-no-proxy">
-							<img alt="{{ person.name }}" class="md-avatar"/>
-							<p>Song - Name ft. Me</p>
-							<md-button aria-label="Summary" class="md-icon-button">
-								<md-icon aria-label="Summary" class="md-secondary" >&#xE313;</md-icon>
-							</md-button>
-							<md-button aria-label="Settings" class="md-icon-button">
-								<md-icon aria-label="Settings" class="md-secondary md-hue-3">&#xE8B8;</md-icon>
-							</md-button>
-						</md-list-item>
-						<md-content class="md-padding" ng-show="false">
-							Yoo this is hidden
-						</md-content>
-						<md-list-item class="noright md-no-proxy">
-							<img alt="{{ person.name }}" class="md-avatar" />
-							<p>Song - Name ft. Me</p>
-							<md-button aria-label="Summary" class="md-icon-button">
-								<md-icon aria-label="Summary" class="md-secondary" >&#xE313;</md-icon>
-							</md-button>
-							<md-button aria-label="Settings" class="md-icon-button">
-								<md-icon aria-label="Settings" class="md-secondary md-hue-3">&#xE8B8;</md-icon>
-							</md-button>
-						</md-list-item>
-					</md-list>
-				</md-content>
+			<md-tab label="Loading" ui-sref='state.loading'>
+				<div ui-view></div>
 			</md-tab>
-			<md-tab label="Failed">
-				<md-content class="md-padding">
-					
-				</md-content>
+			<md-tab label="Failed" ui-sref='state.failed'>
+				<div ui-view></div>
 			</md-tab>
-			<md-tab label="Completed">
-				<md-content class="md-padding">
-					
-				</md-content>
+			<md-tab label="Completed" ui-sref='state.completed'>
+				<div ui-view></div>
 			</md-tab>
 		</md-tabs>
 	</md-content>

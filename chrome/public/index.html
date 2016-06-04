@@ -17,14 +17,14 @@
 		<script type="text/javascript" src="/public/bower_components/angular-animate/angular-animate.min.js"></script>
 		<script type="text/javascript" src="/public/bower_components/angular-aria/angular-aria.min.js"></script>
 		
-		<script type="text/javascript" src="/public/bower_components/pouchdb/dist/pouchdb.min.js"></script>
+		<script type="text/javascript" src="/public/bower_components/pouchdb/dist/pouchdb.js"></script>
 		
 		
 		<!-- Load Angular App -->
 		<script type="text/javascript" src="/public/js/app.js"></script>
 		
 		<!-- Load directives -->
-		<script type="text/javascript" src="/public/js/directives/sidebar/sidebar.directive.js"></script>
+		<!-- <script type="text/javascript" src="/public/js/directives/sidebar/sidebar.directive.js"></script> -->
 		
 		<!-- Load Services -->
 		<script type="text/javascript" src="/public/js/services/downloadRequest.service.js"></script>
@@ -35,11 +35,15 @@
 		<script type="text/javascript" src="/public/js/controllers/mainnav.controller.js"></script>
 		<script type="text/javascript" src="/public/js/controllers/current.controller.js"></script>
 		<script type="text/javascript" src="/public/js/controllers/progress.controller.js"></script>
+		<!-- status controllers -->
+		<script type="text/javascript" src="/public/js/controllers/status/status.loading.controller.js"></script>
+		<script type="text/javascript" src="/public/js/controllers/status/status.failed.controller.js"></script>
+		<script type="text/javascript" src="/public/js/controllers/status/status.completed.controller.js"></script>
 		
     </head>
-    <body ng-app="music-downloader" ng-controller="mainNavCtrl">
+    <body ng-app="music-downloader" ng-controller="mainNavCtrl" flex layout="column">
 		<div ng-include="'/public/views/header.view.html'"></div>
 		<div ng-include="'/public/views/sidenav.view.html'"></div>
-		<div ui-view></div>
+		<md-content ui-view flex layout="column"></md-content>
     </body>
 </html>

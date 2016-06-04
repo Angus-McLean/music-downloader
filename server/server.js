@@ -3,17 +3,19 @@
 var express = require('express'),
 	bodyParser = require('body-parser'),
 	app = express(),
+	dbApp = express(),
 	server = require('http').Server(app),
 	io = require('socket.io')(server),
 	spotify = require('./lib/spotify.js'),
 	youtube = require('./lib/youtube.js'),
 	downloader = require('./lib/download.lib.js'),
 	Download = require('./objects/Download.object.js'),
-	PouchDB = require('pouchdb');
+	PouchDB = require('pouchdb'),
+	EventEmitter = require('events');
 	//ses = require('./config/sessiondata.js')
 
 GLOBAL.io = io;
-GLOBAL.memPouchDB = PouchDB.defaults({db: require('memdown')});
+GLOBAL.memPouchDBConfig = PouchDB.defaults({db: require('memdown')});
 
 // middlewares  :
 app.use(function (req, res, next) {
@@ -21,9 +23,26 @@ app.use(function (req, res, next) {
 	next();
 });
 
-app.use('/db', require('express-pouchdb')(GLOBAL.memPouchDB));
+dbApp.use(require('express-pouchdb')(GLOBAL.memPouchDBConfig));
 
-var downloadsDB = new GLOBAL.memPouchDB('downloadsDB');
+GLOBAL.downloadsDB = new GLOBAL.memPouchDBConfig('downloadsDB');
+GLOBAL.downloadsDBEvents = new EventEmitter();
+GLOBAL.downloadsDB.changes({
+	since: 'now',
+	live: true,
+	include_docs: true
+}).on('change', function (change) {
+	if (change.deleted) {
+		// document was deleted
+	} else {
+		
+		console.log(change.id+':change');
+		downloadsDBEvents.emit(change.id+':change', change.doc);
+	
+	}
+}).on('error', function (err) {
+	// handle errors
+});
 
 // app.use(express.static(__dirname+'/sb-admin-angular/app'));
 // 
@@ -39,8 +58,6 @@ app.get('/playlists/spotify/me', function (req, res) {
 		}
 	})
 });
-
-
 
 ////// Youtube Routes //////
 app.get('/playlists/youtube/me', function (req, res) {
@@ -59,29 +76,18 @@ app.get('/playlists/youtube/songs', function (req, res) {
 	})
 });
 
-
-
-
 ////// Download Routes //////
 
 app.post('/download/urls', function (req, res) {
 
 	var downloadsArr = (req.body && req.body.links) || (req.data && req.data.links) || null;
-	// if(downloadsArr && downloadsArr.length){
-	// 	downloader.downloadLinks(downloadsArr);
-	// 	res.status(200).send('STARTED_DOWNLOAD');
-	// } else {
-	// 	res.status(400).send('MISSING_LINKS');
-	// }
 	
 	if(downloadsArr && downloadsArr.length) {
 		downloadsArr.forEach(function (linkObj) {
 			var newDown = new Download(linkObj);
 			newDown.autoStart();
-			
-			
-			GLOBAL.data.downloads.push(newDown);
 		});
+		res.status(200).send('SUCCESS');
 	} else {
 		res.status(400).send('MISSING_LINKS');
 	}
@@ -90,4 +96,7 @@ app.post('/download/urls', function (req, res) {
 
 app.listen(3000, function () {
 	console.log('listening on port 3000');
+});
+dbApp.listen(3001, function () {
+	console.log('listening on port 3001');
 });

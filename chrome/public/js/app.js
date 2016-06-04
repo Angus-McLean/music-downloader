@@ -11,14 +11,9 @@ angular
 	})
 	.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,$urlRouterProvider) {
 
-		$urlRouterProvider.otherwise('/currentPage');
+		$urlRouterProvider.otherwise('/status');
 
 		$stateProvider
-			.state('currentPage', {
-				url:'/currentPage',
-				templateUrl: 'views/download/current.view.html',
-				controller: 'currentCtrl'
-			})
 			.state('playlist', {
 				url:'/playlist',
 				//controller: 'MainCtrl',
@@ -33,51 +28,34 @@ angular
 				templateUrl:'views/status/inProgress.view.html',
 				controller: 'progressCtrl as demo'
 			})
-			.state('failed',{
-				url:'/failed',
-				templateUrl:'views/status/failed.view.html'
+			.state('status',{
+				url:'/status',
+				templateUrl:'views/status/status.view.html',
+				controller: 'statusCtrl as demo',
+				redirectTo: 'status.loading'
 			})
-		/*
-			.state('dashboard.blank',{
-				templateUrl:'views/pages/blank.html',
-				url:'/blank'
+			.state('status.loading',{
+				url:'/status/loading',
+				controller: 'loadingCtrl as staCtrl',
+				templateUrl:'views/status/status.loading.view.html'
 			})
-			.state('login',{
-				templateUrl:'views/pages/login.html',
-				url:'/login'
+			.state('status.failed',{
+				url:'/status/failed',
+				controller: 'failedCtrl as staCtrl',
+				templateUrl:'views/status/status.failed.view.html'
 			})
-			.state('dashboard.chart',{
-				templateUrl:'views/chart.html',
-				url:'/chart',
-				controller:'ChartCtrl'
-			})
-			.state('dashboard.table',{
-				templateUrl:'views/table.html',
-				url:'/table'
-			})
-			.state('dashboard.panels-wells',{
-					templateUrl:'views/ui-elements/panels-wells.html',
-					url:'/panels-wells'
-			})
-			.state('dashboard.buttons',{
-				templateUrl:'views/ui-elements/buttons.html',
-				url:'/buttons'
-			})
-			.state('dashboard.notifications',{
-				templateUrl:'views/ui-elements/notifications.html',
-				url:'/notifications'
-			})
-			.state('dashboard.typography',{
-				templateUrl:'views/ui-elements/typography.html',
-				url:'/typography'
-			})
-			.state('dashboard.icons',{
-				templateUrl:'views/ui-elements/icons.html',
-				url:'/icons'
-			})
-			.state('dashboard.grid',{
-				templateUrl:'views/ui-elements/grid.html',
-				url:'/grid'
+			.state('status.completed',{
+				url:'/status/completed',
+				controller: 'completedCtrl as staCtrl',
+				templateUrl:'views/status/status.completed.view.html'
 			});
-		*/
-}]);
+	}])
+	.run(['$rootScope', '$state', 'pouchDB', function($rootScope, $state) {
+		
+		$rootScope.$on('$stateChangeStart', function(evt, to, params) {
+			if (to.redirectTo) {
+				evt.preventDefault();
+				$state.go(to.redirectTo, params, {location: 'replace'});
+			}
+		});
+	}]);

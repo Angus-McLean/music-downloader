@@ -1,0 +1,43 @@
+<md-content class="md-padding">
+	<md-list>
+		<div ng-repeat="song in staCtrl.songs">
+			<md-list-item class="noright md-no-proxy">
+				<img alt="{{ person.name }}" class="md-avatar"/>
+				<p>{{(song.songMetadata.artist || song.songMetadata.title) ? song.songMetadata.artist + ' - ' + song.songMetadata.title : song.downloadURL}}</p>
+				<md-button aria-label="Summary" class="md-icon-button" ng-click="toggleDetails(song)">
+					<md-icon aria-label="Summary" class="md-secondary" ng-show="!song.details">&#xE313;</md-icon>
+					<md-icon aria-label="Summary" class="md-secondary" ng-show="song.details">&#xE316;</md-icon>
+				</md-button>
+				<md-button aria-label="Settings" class="md-icon-button">
+					<md-icon aria-label="Settings" class="md-secondary md-hue-3">&#xE8B8;</md-icon>
+				</md-button>
+			</md-list-item>
+			<md-list-item class="noright md-no-proxy" ng-show="song.details">
+				<div flex="50">
+					<md-input-container class="md-block tight" flex-gt-sm>
+						<label>Track Title</label>
+						<input ng-model="song.songMetadata.title">
+					</md-input-container>
+					<md-input-container class="md-block tight" flex-gt-sm>
+						<label>URL</label>
+						<input ng-model="song.downloadURL">
+					</md-input-container>
+				</div>
+				<div>
+					<md-input-container class="tight">
+						<label>Artist</label>
+						<input ng-model="song.songMetadata.artist">
+					</md-input-container>
+					<md-input-container class="tight">
+						<label>Album</label>
+						<input ng-model="song.songMetadata.album">
+					</md-input-container>
+					<md-input-container class="tight">
+						<label>Year</label>
+						<input ng-model="song.songMetadata.year">
+					</md-input-container>
+				</div>
+			</md-list-item>
+		</div>
+	</md-list>
+</md-content>
