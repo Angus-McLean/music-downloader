@@ -24,7 +24,7 @@
 		}
 	],
 	"permissions": [
-		"tabs", "http://*/*", "activeTab", "contextMenus"
+		"tabs", "http://*/*", "https://*/*", "activeTab", "contextMenus"
 	],
 	"browser_action": {
 		"default_title": "Music-Downloader",

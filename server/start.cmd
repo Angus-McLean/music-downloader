@@ -1,1 +1,1 @@
-start "" /b node.exe server.js
+start "" /b bin\node.exe server.js

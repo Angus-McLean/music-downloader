@@ -3,7 +3,20 @@
 		<div ng-repeat="song in staCtrl.songs">
 			<md-list-item class="noright md-no-proxy">
 				<img alt="{{ person.name }}" class="md-avatar"/>
-				<p>{{(song.songMetadata.artist || song.songMetadata.title) ? song.songMetadata.artist + ' - ' + song.songMetadata.title : song.downloadURL}}</p>
+				
+				<p ng-show="!song._a.editing">
+					{{ (song.songMetadata.artist || song.songMetadata.title) ? song.songMetadata.artist + ' - ' + song.songMetadata.title : song.downloadURL }}
+				</p>
+				<md-input-container class="md-block tight" flex="66" ng-show="song._a.editing">
+					<label>Track Title</label>
+					<input ng-model="song._a.desc">
+				</md-input-container>
+				
+				
+				<md-button aria-label="Summary" class="md-icon-button" ng-click="toggleEdit(song)">
+					<md-icon aria-label="Summary" class="md-secondary" ng-show="!song._a.editing">edit</md-icon>
+					<md-icon aria-label="Summary" class="md-secondary" ng-show="song._a.editing">check</md-icon>
+				</md-button>
 				<md-button aria-label="Summary" class="md-icon-button" ng-click="toggleDetails(song)">
 					<md-icon aria-label="Summary" class="md-secondary" ng-show="!song._a.details">&#xE313;</md-icon>
 					<md-icon aria-label="Summary" class="md-secondary" ng-show="song._a.details">&#xE316;</md-icon>

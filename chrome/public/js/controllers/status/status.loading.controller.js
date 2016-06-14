@@ -10,6 +10,17 @@ angular.module('music-downloader')
 			song._a.details = !song._a.details;
 		};
 		
+		$scope.toggleEdit = function (song) {
+			if(!song._a) {
+				song._a = {};
+			}
+			if(song._a.editing) {
+				parseSongDescription(song);
+				$scope.update(song);
+			}
+			song._a.editing = !song._a.editing;
+		};
+		
 		$scope.ngModelOptions = {
 			debounce : 1000
 		};
@@ -19,5 +30,14 @@ angular.module('music-downloader')
 			delete saveObj._a;
 			pouchDB.db.put(saveObj);
 		};
+		
+		function parseSongDescription (song) {
+			console.log(arguments);
+			var parsedDesc = /^((?!-).*)-((?!-).*)$/.exec(song._a.desc);
+			if(parsedDesc && parsedDesc.length) {
+				song.songMetadata.artist = parsedDesc[1].replace(/[ ]?$/, '');
+				song.songMetadata.title = parsedDesc[2].replace(/^[ ]?/, '');
+			}
+		}
 		
 	}]);

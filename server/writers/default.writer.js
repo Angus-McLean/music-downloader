@@ -8,7 +8,7 @@ var EventEmitter = require('events').EventEmitter,
 	settings = require(__dirname + '.\\..\\config\\constants.js'),
 	ffmetadata = require("ffmetadata");
 
-process.env.FFMPEG_PATH = "C:\\Users\\ERP Guru\\Downloads\\ffmpeg-20160530-git-d74cc61-win32-static\\bin\\ffmpeg.exe";
+process.env.FFMPEG_PATH = "bin\\ffmpeg.exe";
 
 
 function formatSongName(downloadLink) {
