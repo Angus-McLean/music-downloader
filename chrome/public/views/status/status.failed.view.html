@@ -4,13 +4,29 @@
 			<md-list-item class="noright md-no-proxy">
 				<img alt="{{ person.name }}" class="md-avatar"/>
 				<p>{{(song.songMetadata.artist || song.songMetadata.title) ? song.songMetadata.artist + ' - ' + song.songMetadata.title : song.downloadURL}}</p>
+				
+				<md-button aria-label="Retry" class="md-icon-button" ng-click="ops.retry(song)">
+					<md-tooltip>Retry</md-tooltip>
+					<md-icon aria-label="Retry" class="md-secondary md-hue-3">replay</md-icon>
+				</md-button>
 				<md-button aria-label="Summary" class="md-icon-button" ng-click="toggleDetails(song)">
+					<md-tooltip>Summary</md-tooltip>
 					<md-icon aria-label="Summary" class="md-secondary" ng-show="!song.details">&#xE313;</md-icon>
 					<md-icon aria-label="Summary" class="md-secondary" ng-show="song.details">&#xE316;</md-icon>
 				</md-button>
-				<md-button aria-label="Settings" class="md-icon-button">
-					<md-icon aria-label="Settings" class="md-secondary md-hue-3">&#xE8B8;</md-icon>
-				</md-button>
+				<md-menu>
+					<md-button aria-label="More" class="md-icon-button" ng-click="ops.openMenu($mdOpenMenu, $event)">
+						<md-icon md-menu-origin>more_vert</md-icon>
+					</md-button>
+					<md-menu-content width="4">
+						<md-menu-item ng-repeat="item in ops._items">
+							<md-button ng-click="item.click(song)">
+								<md-icon md-menu-align-target>{{item.icon}}</md-icon>
+								{{item.text}}
+							</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
 			</md-list-item>
 			<md-list-item class="noright md-no-proxy" ng-show="song.details">
 				<div flex="50">

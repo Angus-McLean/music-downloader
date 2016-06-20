@@ -48,6 +48,11 @@ angular
 				url:'/status/completed',
 				controller: 'completedCtrl as staCtrl',
 				templateUrl:'views/status/status.completed.view.html'
+			})
+			.state('status.archived',{
+				url:'/status/archived',
+				controller: 'archivedCtrl as staCtrl',
+				templateUrl:'views/status/status.archived.view.html'
 			});
 	}])
 	.run(['$rootScope', '$state', 'pouchDB', function($rootScope, $state) {

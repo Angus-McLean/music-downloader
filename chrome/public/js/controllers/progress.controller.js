@@ -1,5 +1,5 @@
 angular.module('music-downloader')
-	.controller('statusCtrl', ['$scope', 'downloadService', function($scope, downloadService) {
+	.controller('statusCtrl', ['$scope', 'downloadService', '$state', 'pouchDB', function($scope, downloadService, $state, pouchDB) {
 		console.log('loaded statusCtrl');
 		
 		this.selectedMode = 'md-fling';
@@ -25,6 +25,19 @@ angular.module('music-downloader')
 					});
 				}
 			});
+		};
+		
+		$scope.manualEntry = function () {
+			var emptySong = {
+				downloadURL : '',
+				status : 'initialize',
+				songMetadata : {},
+				_a : {
+					editing : true,
+					details  :true
+				}
+			};
+			pouchDB.data.loading[null] = emptySong;
 		};
 		
 	}]);

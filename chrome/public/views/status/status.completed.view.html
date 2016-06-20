@@ -8,19 +8,38 @@
 					<md-icon aria-label="Summary" class="md-secondary" ng-show="!song.details">&#xE313;</md-icon>
 					<md-icon aria-label="Summary" class="md-secondary" ng-show="song.details">&#xE316;</md-icon>
 				</md-button>
-				<md-button aria-label="Settings" class="md-icon-button">
-					<md-icon aria-label="Settings" class="md-secondary md-hue-3">&#xE8B8;</md-icon>
+				<md-button aria-label="Archive" class="md-icon-button" ng-click="ops.changeStatus('archived', song)">
+					<md-tooltip>Achive</md-tooltip>
+					<md-icon aria-label="Archive" class="md-secondary md-hue-3">archive</md-icon>
 				</md-button>
+				<md-menu>
+					<md-button aria-label="More" class="md-icon-button" ng-click="ops.openMenu($mdOpenMenu, $event)">
+						<md-icon md-menu-origin>more_vert</md-icon>
+					</md-button>
+					<md-menu-content width="4">
+						<md-menu-item ng-repeat="item in ops._items">
+							<md-button ng-click="item.click(song)">
+								<md-icon md-menu-align-target>{{item.icon}}</md-icon>
+								{{item.text}}
+							</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
 			</md-list-item>
 			<md-list-item class="noright md-no-proxy" ng-show="song.details">
-				<div flex="50">
+				<div flex="50" style="overflow:hidden;">
 					<md-input-container class="md-block tight" flex-gt-sm>
 						<label>Track Title</label>
 						<input ng-model="song.songMetadata.title">
 					</md-input-container>
+					<!-- <p>{{song.downloadURL}}</p> -->
 					<md-input-container class="md-block tight" flex-gt-sm>
 						<label>URL</label>
-						<input ng-model="song.downloadURL">
+						<div ng-click="ops.openSong(song)">
+							<input disabled ng-model="song.downloadURL"></input>
+							<md-tooltip>Go To Link</md-tooltip>
+						</div>
+						
 					</md-input-container>
 				</div>
 				<div>

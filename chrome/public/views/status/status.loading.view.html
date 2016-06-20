@@ -13,17 +13,29 @@
 				</md-input-container>
 				
 				
-				<md-button aria-label="Summary" class="md-icon-button" ng-click="toggleEdit(song)">
-					<md-icon aria-label="Summary" class="md-secondary" ng-show="!song._a.editing">edit</md-icon>
-					<md-icon aria-label="Summary" class="md-secondary" ng-show="song._a.editing">check</md-icon>
+				<md-button aria-label="Rename" class="md-icon-button" ng-click="toggleEdit(song)">
+					<md-tooltip>Rename</md-tooltip>
+					<md-icon aria-label="Rename" class="md-secondary" ng-show="!song._a.editing">edit</md-icon>
+					<md-icon aria-label="Rename" class="md-secondary" ng-show="song._a.editing">check</md-icon>
 				</md-button>
 				<md-button aria-label="Summary" class="md-icon-button" ng-click="toggleDetails(song)">
+					<md-tooltip>Summary</md-tooltip>
 					<md-icon aria-label="Summary" class="md-secondary" ng-show="!song._a.details">&#xE313;</md-icon>
 					<md-icon aria-label="Summary" class="md-secondary" ng-show="song._a.details">&#xE316;</md-icon>
 				</md-button>
-				<md-button aria-label="Settings" class="md-icon-button">
-					<md-icon aria-label="Settings" class="md-secondary md-hue-3">&#xE8B8;</md-icon>
-				</md-button>
+				<md-menu>
+					<md-button aria-label="More" class="md-icon-button" ng-click="ops.openMenu($mdOpenMenu, $event)">
+						<md-icon md-menu-origin>more_vert</md-icon>
+					</md-button>
+					<md-menu-content width="4">
+						<md-menu-item ng-repeat="item in ops._items">
+							<md-button ng-click="item.click(song)">
+								<md-icon md-menu-align-target>{{item.icon}}</md-icon>
+								{{item.text}}
+							</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
 			</md-list-item>
 			<md-list-item class="noright md-no-proxy" ng-show="song._a.details">
 				<div flex="50">
@@ -33,22 +45,35 @@
 					</md-input-container>
 					<md-input-container class="md-block tight" flex-gt-sm>
 						<label>URL</label>
+						<a href="{{song.downloadURL}}"></a>
 						<input ng-model-options="ngModelOptions" ng-change="update(song)" ng-model="song.downloadURL">
 					</md-input-container>
 				</div>
-				<div>
-					<md-input-container class="tight">
-						<label>Artist</label>
-						<input ng-model-options="ngModelOptions" ng-change="update(song)" ng-model="song.songMetadata.artist">
-					</md-input-container>
-					<md-input-container class="tight">
-						<label>Album</label>
-						<input ng-model-options="ngModelOptions" ng-change="update(song)" ng-model="song.songMetadata.album">
-					</md-input-container>
-					<md-input-container class="tight">
-						<label>Year</label>
-						<input ng-model-options="ngModelOptions" ng-change="update(song)" ng-model="song.songMetadata.year">
-					</md-input-container>
+				<div layout="columns">
+					<div flex=50>
+						<md-input-container class="tight">
+							<label>Artist</label>
+							<input ng-model-options="ngModelOptions" ng-change="update(song)" ng-model="song.songMetadata.artist">
+						</md-input-container>
+						<md-input-container class="tight">
+							<label>Album</label>
+							<input ng-model-options="ngModelOptions" ng-change="update(song)" ng-model="song.songMetadata.album">
+						</md-input-container>
+					</div>
+					<div flex=50>
+						<md-input-container class="tight">
+							<label>Year</label>
+							<input ng-model-options="ngModelOptions" ng-change="update(song)" ng-model="song.songMetadata.year">
+						</md-input-container>
+						<div layout="columns" ng-show="song.status == 'initialize'">
+							<md-button class="md-raised" aria-label="Download" ng-click="ops.downloadManually(song)" layout-align="space-between none">
+								Start Download
+							</md-button>
+						</div>
+					</div>
+				
+					
+					
 				</div>
 			</md-list-item>
 		</div>

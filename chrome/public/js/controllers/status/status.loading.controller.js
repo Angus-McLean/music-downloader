@@ -1,7 +1,9 @@
 angular.module('music-downloader')
-	.controller('loadingCtrl', ['$scope', 'downloadService', 'pouchDB', function($scope, downloadService, pouchDB) {
+	.controller('loadingCtrl', ['$scope', 'downloadService', 'pouchDB', 'songOperations', function($scope, downloadService, pouchDB, songOperations) {
 		var self = this;
 		self.songs = pouchDB.data.loading;
+		
+		$scope.ops = songOperations;
 		
 		$scope.toggleDetails = function(song) {
 			if(!song._a) {
@@ -25,11 +27,7 @@ angular.module('music-downloader')
 			debounce : 1000
 		};
 		
-		$scope.update = function (song) {
-			var saveObj = JSON.parse(JSON.stringify(song));
-			delete saveObj._a;
-			pouchDB.db.put(saveObj);
-		};
+		$scope.update = pouchDB.updateSong;
 		
 		function parseSongDescription (song) {
 			console.log(arguments);

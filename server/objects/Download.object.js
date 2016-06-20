@@ -30,7 +30,10 @@ function Download(reqObject) {
 		_id : reqObject.downloadURL,
 		status : 'loading',
 		downloadURL : reqObject.downloadURL,
-		songMetadata : reqObject.songMetadata
+		songMetadata : reqObject.songMetadata,
+		date : {
+			start : new Date()
+		}
 	};
 
 	this._id = reqObject.downloadURL;

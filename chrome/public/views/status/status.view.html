@@ -10,6 +10,9 @@
 			<md-tab label="Completed" ui-sref='status.completed'>
 				<div ui-view></div>
 			</md-tab>
+			<md-tab label="Archived" ui-sref='status.archived'>
+				<div ui-view></div>
+			</md-tab>
 		</md-tabs>
 	</md-content>
 	
@@ -22,13 +25,16 @@
 			</md-fab-trigger>
 			<md-fab-actions>
 				<md-button aria-label="Current Page" class="md-fab md-raised md-mini" ng-click="startDownload()">
+					<md-tooltip>Current Page</md-tooltip>
 					<md-icon aria-label="Current Page">&#xE2C4;</md-icon>
 				</md-button>
 				<md-button aria-label="Click" class="md-fab md-raised md-mini">
+					<md-tooltip>Search</md-tooltip>
 					<md-icon aria-label="Click">search</md-icon>
 				</md-button>
-				<md-button aria-label="Many" class="md-fab md-raised md-mini">
-					<md-icon aria-label="Many">&#xE877;</md-icon>
+				<md-button aria-label="Create" class="md-fab md-raised md-mini" ng-click="manualEntry()">
+					<md-tooltip>Create Manually</md-tooltip>
+					<md-icon aria-label="Create">create</md-icon>
 				</md-button>
 			</md-fab-actions>
 		</md-fab-speed-dial>

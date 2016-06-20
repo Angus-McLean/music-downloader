@@ -1,11 +1,9 @@
 
 ///// High-Level ToDo's /////
 Chrome App :
-	- Use Last.fm api or spotify api to automatically find meta data
 	- Allow for sorting into folders
-	
-	
+	- Add Archived status
+	- Use Last.fm api or spotify api to automatically find meta data
 
 ///// Technical ToDo's /////
-
-	- replace relative paths with path.join module
+	- Refactor duplicate code for all the views / controllers

@@ -1,0 +1,14 @@
+<md-content class="md-padding">
+	<md-list>
+		<div ng-repeat="song in staCtrl.songs">
+			<md-list-item class="noright md-no-proxy">
+				<img alt="{{ person.name }}" class="md-avatar"/>
+				<p>{{(song.songMetadata.artist || song.songMetadata.title) ? song.songMetadata.artist + ' - ' + song.songMetadata.title : song.downloadURL}}</p>
+				<md-button aria-label="Archive" class="md-icon-button" ng-click="ops.changeStatus('completed', song)">
+					<md-tooltip>Unarchive</md-tooltip>
+					<md-icon aria-label="Archive" class="md-secondary md-hue-3">unarchive</md-icon>
+				</md-button>
+			</md-list-item>
+		</div>
+	</md-list>
+</md-content>
