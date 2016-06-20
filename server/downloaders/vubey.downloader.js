@@ -1,11 +1,12 @@
 // vubey.downloader.js
 
 var EventEmitter = require('events').EventEmitter,
+	path = require('path'),
 	util = require('util'),
 	request = require('request'),
 	async = require('async'),
 	querystring = require('querystring'),
-	httpHelpers = require('./../lib/httpHelpers.js'),
+	httpHelpers = require(path.join(__base, 'lib','httpHelpers.js')),
 	settings = require(__dirname + '.\\..\\config\\constants.js');
 
 function VubeyDownloader(songUrl) {

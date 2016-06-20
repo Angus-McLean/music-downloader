@@ -1,16 +1,16 @@
 // Download.object.js
-
-var DefaultWriter = require('./../writers/default.writer.js');
+var path = require('path'),
+	DefaultWriter = require(path.join(__base, 'writers', 'default.writer.js'));
 
 var EventEmitter = require('events').EventEmitter,
 	util = require('util');
 	
 var availableDownloaders = {
-	vubey : require('./../downloaders/vubey.downloader.js')
+	vubey : require(path.join(__base, 'downloaders', 'vubey.downloader.js'))
 };
 
 var availableWriters = {
-	default : require('./../writers/default.writer.js')
+	default : require(path.join(__base, 'writers', 'default.writer.js'))
 }
 
 function Download(reqObject) {

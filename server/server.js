@@ -1,15 +1,18 @@
 // server.js
 
+GLOBAL.__base = __dirname;
+
 var express = require('express'),
+	path = require('path'),
 	bodyParser = require('body-parser'),
 	app = express(),
 	dbApp = express(),
 	server = require('http').Server(app),
 	io = require('socket.io')(server),
-	spotify = require('./lib/spotify.js'),
-	youtube = require('./lib/youtube.js'),
-	downloader = require('./lib/download.lib.js'),
-	Download = require('./objects/Download.object.js'),
+	spotify = require(path.join(__base, 'lib', 'spotify.js')),
+	youtube = require(path.join(__base, 'lib', 'youtube.js')),
+	downloader = require(path.join(__base, 'lib', 'download.lib.js')),
+	Download = require(path.join(__base, 'objects', 'Download.object.js')),
 	PouchDB = require('pouchdb'),
 	EventEmitter = require('events');
 	//ses = require('./config/sessiondata.js')

@@ -1,11 +1,12 @@
 // default.writer.js
 
 var EventEmitter = require('events').EventEmitter,
+	path = require('path'),
 	util = require('util'),
 	fs = require('fs'),
 	request = require('request'),
-	httpHelpers = require('./../lib/httpHelpers.js'),
-	settings = require(__dirname + '.\\..\\config\\constants.js'),
+	httpHelpers = require(path.join(__base, 'lib', 'httpHelpers.js')),
+	settings = require(path.join(__base,'config', 'constants.js')),
 	ffmetadata = require("ffmetadata");
 
 process.env.FFMPEG_PATH = "bin\\ffmpeg.exe";
